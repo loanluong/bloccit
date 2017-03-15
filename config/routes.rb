@@ -5,6 +5,8 @@
   
   get 'welcome/contact'
   
+  get 'welcome/faq'
+  
   root 'welcome#index'
 
 end
