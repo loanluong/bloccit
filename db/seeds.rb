@@ -1,10 +1,15 @@
 require 'random_data'
 
- # Create Posts
+  75.times do
+   Question.create!(
+     title:  RandomData.random_sentence,
+     body:   RandomData.random_paragraph,
+     resolved: false
+   )
+ end
+# Create Posts
  50.times do
- # #1
    Post.create!(
- # #2
      title:  RandomData.random_sentence,
      body:   RandomData.random_paragraph
    )
@@ -20,7 +25,7 @@ require 'random_data'
      body: RandomData.random_paragraph
    )
  end
- 
+
  Post.find_or_create_by!(
      title: "unique title",
      body: "unique body"
@@ -29,3 +34,4 @@ require 'random_data'
  puts "Seed finished"
  puts "#{Post.count} posts created"
  puts "#{Comment.count} comments created"
+ puts "#{Question.count} questions created"
