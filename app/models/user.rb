@@ -1,5 +1,4 @@
 class User < ActiveRecord::Base
-    before_save :format_name
     before_save { self.email = email.downcase if email.present? }
     validates :name, length: { minimum: 1, maximum: 100 }, presence: true
     validates :password, presence: true, length: { minimum: 6 }, if: "password_digest.nil?"
@@ -14,7 +13,8 @@ class User < ActiveRecord::Base
         if name
             name_array = []
             name.split.each do |n| 
-                name_array << n.capitalize end
+                name_array << n.capitalize 
+            end
         end
         self.name = name_array.join(" ")
     end
