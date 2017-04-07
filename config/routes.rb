@@ -8,6 +8,8 @@
 
   get 'about' => 'welcome#about'
   
+  post 'users/confirmation' => 'users#confirmation' 
+  
   root 'welcome#index'
 
 end
