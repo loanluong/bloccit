@@ -4,6 +4,7 @@
   end
   resources :users, only: [:new, :create]
   resources :questions
+  resources :sessions, only: [:new, :create, :destroy]
   
 
   get 'about' => 'welcome#about'
