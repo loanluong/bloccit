@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   let(:user) { User.create!(name: "Bloccit User", email: "user@bloccit.com", password: "password") }
   
+  it { is_expected.to have_many(:posts) }
   it { is_expected.to validate_presence_of(:name) }
   it { is_expected.to validate_length_of(:name).is_at_least(1) }
   
@@ -20,11 +21,6 @@ RSpec.describe User, type: :model do
           expect(user).to have_attributes(name:"Bloccit User", email: "user@bloccit.com")
       end
       
-      it "should format user name" do
-          user.name = "hudson phan"
-          user.save
-          expect(user.name).to eq "Hudson Phan"
-      end
   end
   
   describe "invalid user" do
