@@ -46,11 +46,19 @@ require 'random_data'
      body: "unique body"
      )
      
-     user = User.first
- user.update_attributes!(
-   email: 'youremail.com', # replace this with your personal email
-   password: 'helloworld'
- )
+  # Create an admin user
+  admin = User.create!(
+    name:  'Admin User',
+    email: 'admin@example.com',
+    password: 'helloworld',
+    role: 'admin'
+  )
+  
+  member = User.create!(
+     name: 'Member User',
+     email: 'member@example.com',
+     password: 'helloworld'
+     )
 
      
  puts "Seed finished"
