@@ -9,6 +9,7 @@ RSpec.describe Post, type: :model do
   let(:topic) { Topic.create!(name: name, description: description) }
   let(:user) { User.create!(name: "Bloccit User", email: "user@bloccit.com", password: "helloworld") }
   let(:post) { topic.posts.create!(title: title, body: body, user: user) }
+  let(:post_new) { topic.posts.new(title: RandomData.random_sentence, body: RandomData.random_paragraph, user: user)}
   
   it { is_expected.to have_many(:comments) }
   it { is_expected.to have_many(:votes) }
@@ -64,7 +65,7 @@ RSpec.describe Post, type: :model do
      describe "#update_rank" do
          it "calculates the correct rank" do
              post.update_rank
-             expect(post.rank).to eq (post.points + (post.created_at = Time.new(1970,1,1)) / 1.day.seconds)
+             expect(post.rank).to eq (post.points + (post.created_at - Time.new(1970,1,1))/1.day.seconds)
          end
          
          it "updates the rank when an up vote is created" do
@@ -78,6 +79,21 @@ RSpec.describe Post, type: :model do
          post.votes.create!(value: -1)
          expect(post.rank).to eq (old_rank - 1)
        end
+     end
+     
+     describe "after_create" do
+         it "sets up_vote to 1" do
+             expect(post.up_votes).to eq(1)
+         end
+         
+         it "creates vote on creation" do 
+             expect(post_new).to receive(:create_vote).at_least(:once)
+             post_new.save
+         end
+         
+         it "confirms first vote belongs to user" do
+             expect(post.votes.first.user).to eq(post.user)
+         end
      end
    end
 end
