@@ -19,6 +19,7 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'bootstrap-sass'
 gem 'bcrypt'
+gem 'figaro', '1.0'
 
 
 # Use ActiveModel has_secure_password
