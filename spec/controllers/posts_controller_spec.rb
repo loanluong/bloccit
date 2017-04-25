@@ -7,6 +7,7 @@ RSpec.describe PostsController, type: :controller do
   let(:other_user) { User.create!(name: RandomData.random_name, email: RandomData.random_email, password: "helloworld", role: :member) }
   let (:my_topic) { Topic.create!(name:  RandomData.random_sentence, description: RandomData.random_paragraph) }
   let(:my_post) { my_topic.posts.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, user: my_user) }
+  
 
   context "guest" do
     describe "GET show" do
@@ -256,6 +257,7 @@ RSpec.describe PostsController, type: :controller do
         expect(response).to redirect_to my_topic
       end
     end
+    
   end
 
   context "admin user doing CRUD on a post they don't own" do
